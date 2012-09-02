@@ -1,19 +1,32 @@
-require "guard/behat/version"
+
+#require "guard/behat/version.rb"
 require 'guard'
 require 'guard/guard'
 
 module Guard
+
+
 	class Behat < Guard
+
+		DEFAULT_OPTIONS = {
+			:all_on_start   => true,
+			:tests_path     => Dir.pwd
+		}
+
 		# Initialize a Guard.
 		# @param [Array<Guard::Watcher>] watchers the Guard file watchers
 		# @param [Hash] options the custom Guard options
 		def initialize(watchers = [], options = {})
-			super
+			defaults = DEFAULT_OPTIONS.clone
+			@options = defaults.merge(options)
+
+			super(watchers, @options)
 		end
 
 		# Call once when Guard starts. Please override initialize method to init stuff.
 		# @raise [:task_has_failed] when start has failed
 		def start
+			run_all if options[:all_on_start]
 		end
 
 		# Called when `stop|quit|exit|s|q|e + enter` is pressed (when Guard quits).
@@ -31,12 +44,18 @@ module Guard
 		# This method should be principally used for long action like running all specs/tests/...
 		# @raise [:task_has_failed] when run_all has failed
 		def run_all
+			puts 'Run all Behat tests'
+			puts `behat`
 		end
 
 		# Called on file(s) modifications that the Guard watches.
 		# @param [Array<String>] paths the changes files or paths
 		# @raise [:task_has_failed] when run_on_change has failed
 		def run_on_changes(paths)
+			paths.each do |file|
+				puts "Behat #{file}"
+				puts `behat #{file}`
+			end
 		end
 
 		# Called on file(s) deletions that the Guard watches.

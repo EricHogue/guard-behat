@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/guard-behat/version', __FILE__)
+$:.push File.expand_path("../lib", __FILE__)
+require 'guard/behat/version'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Eric Hogue"]
