@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["eric@erichogue.ca"]
   gem.description   = %q{Automatically run behat tests}
   gem.summary       = %q{Guard gem for running behat}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/EricHogue/guard-behat"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
